@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon test.js"
+    "dev": "nodemon src/test.js",
+    "build": "echo \"Building...\"",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "eslint": "^9.30.1",
     "nodemon": "^3.1.10"
   }
 }
