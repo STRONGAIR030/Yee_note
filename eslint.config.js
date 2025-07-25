@@ -1,4 +1,4 @@
-// 根目录：eslint.config.js
+// 根目錄：eslint.config.js
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import globals from "globals";
@@ -6,16 +6,16 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-// 用来兼容旧式 shareable config（如 eslint:recommended）
+// 用来兼容舊式 shareable config
 const compat = new FlatCompat({
   baseDirectory: import.meta.url,
 });
 
 export default [
-  // 先引入 JS 推荐规则
+  // 先引入 JS 推荐規則
   ...compat.extends("eslint:recommended"),
 
-  // 全项目通用设置
+  // 全域目通用设置
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
@@ -34,7 +34,7 @@ export default [
     },
   },
 
-  // Web 子项目专用设置（摘自你原本的 config）
+  // Web 子項目
   {
     files: ["apps/web/**/*.{ts,tsx,js,jsx}"],
     ignores: ["dist"],
@@ -56,7 +56,7 @@ export default [
       "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
     },
     rules: {
-      // 可以在这里加入 web 特有的 override
+      // 可以在這里加入 web 特有的 override
     },
   },
 
