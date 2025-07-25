@@ -411,7 +411,7 @@ items (
 
 ## 6. 工具箱（起手式連結 – 之後可再補）（起手式連結 – 之後可再補）
 
-* Turborepo 官方文件
+* [Turborepo 官方文件](https://turborepo.com/docs)
 * Prisma Quickstart / Supabase Docs
 * Tiptap 官方 React Starter + KaTeX extension
 * rrule.js README & examples
@@ -421,21 +421,3 @@ items (
 （要我之後把連結貼齊再告訴我）
 
 ---
-
-## 7. 下一步建議
-
-1. **確認決策表**（DB/Auth/Backend/Monorepo 工具）。
-2. 開始 **L0 → L1 → L2**，每完成一個就打勾並簡短記錄遇到的坑。
-3. L3（編輯器）前，先畫出 Page/Block 的資料格式（JSON Schema）。
-4. L4（RRULE）後就能開始 M0/M1。
-
----
-
-## 8. 回給我這些，我再微調
-
-* 有沒有要先砍掉或延後的功能（例如：註解、共編、推播）？
-* 決策表中你想採用的選項（或你已有偏好）
-* 需要我補充的教材/範例主題（例如：如何把 Tiptap JSON 存進 Prisma）
-* 你想用的工作流（例如：GitHub Projects 看板、Issue 模板）
-
-> 之後我們可以把每個 L/M 拆成 Issue checklist，我也可以幫你寫 Issue Template。
