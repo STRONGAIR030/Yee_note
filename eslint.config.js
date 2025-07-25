@@ -1,80 +1,84 @@
-// 根目錄：eslint.config.js
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import importPlugin from "eslint-plugin-import";
 
-// 用来兼容舊式 shareable config
-const compat = new FlatCompat({
-  baseDirectory: import.meta.url,
-});
+// 共用的基礎規則
+const baseRules = {
+  indent: ["error", 2],
+  quotes: ["error", "single", { avoidEscape: true }],
+  semi: ["error", "always"],
+  "comma-dangle": ["error", "always-multiline"],
+  "import/order": ["error", { "newlines-between": "always" }],
+  "@typescript-eslint/no-unused-vars": "warn",
+};
 
-export default [
-  // 先引入 JS 推荐規則
-  ...compat.extends("eslint:recommended"),
+export default tseslint.config(
+  // 基礎配置
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
 
-  // 全域目通用设置
+  // 忽略配置
+  {
+    ignores: ["**/dist/**", "**/node_modules/**"],
+  },
+
+  // 全局設定
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: "module",
+      globals: globals.browser,
     },
     plugins: {
-      import: require("eslint-plugin-import"),
+      import: importPlugin,
     },
-    rules: {
-      indent: ["error", 2],
-      quotes: ["error", "single", { avoidEscape: true }],
-      semi: ["error", "always"],
-      "comma-dangle": ["error", "always-multiline"],
-      "import/order": ["error", { "newlines-between": "always" }],
-    },
+    rules: baseRules,
   },
 
-  // Web 子項目
+  // Web 子專案 (React)
   {
     files: ["apps/web/**/*.{ts,tsx,js,jsx}"],
-    ignores: ["dist"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite,
-    ],
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: "module",
       globals: globals.browser,
-      parser: "@typescript-eslint/parser",
     },
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
+      import: importPlugin,
     },
     rules: {
-      // 可以在這里加入 web 特有的 override
+      ...baseRules,
+      // React 專屬規則
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
   },
 
-  // Server 子项目或其它 packages，如有需要可新增更多
+  // Server 子專案 (Node.js)
   {
     files: ["apps/server/**/*.{js,ts}"],
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: "module",
       globals: globals.node,
-      parser: "@typescript-eslint/parser",
     },
     plugins: {
-      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
+      import: importPlugin,
     },
-    env: { node: true },
     rules: {
+      ...baseRules,
+      // Node.js 專屬規則
       "no-console": "off",
     },
-  },
-];
+  }
+);

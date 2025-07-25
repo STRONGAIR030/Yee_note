@@ -6,8 +6,8 @@ function App() {
       <p>Hello World</p>
       <button onClick={() => setCount(count + 1)}>Increment</button>
       <p>Count: {count}</p>
-     </div>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

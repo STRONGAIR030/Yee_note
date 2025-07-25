@@ -1,1 +1,1 @@
-console.log("This is a test file for the server application.");
+console.log('This is a test file for the server application.');
